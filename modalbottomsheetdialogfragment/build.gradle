@@ -1,11 +1,10 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 27
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 14
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -24,10 +23,7 @@ android {
 }
 
 dependencies {
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-    api 'com.android.support:design:27.1.0'
-    api 'com.android.support:recyclerview-v7:27.1.0'
+    api 'com.android.support:design:27.1.1'
+    api 'com.android.support:recyclerview-v7:27.1.1'
 }
 
-apply from: 'https://raw.githubusercontent.com/Commit451/gradle-android-javadocs/1.0.0/gradle-android-javadocs.gradle'
