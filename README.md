@@ -1,12 +1,28 @@
-# ModalBottomSheetDialogFragment
+# [ModalBottomSheetDialogFragment](https://github.com/Commit451/ModalBottomSheetDialogFragment) Java port
 
 Modal bottom sheet dialog based on the [Material Guidelines](https://material.io/guidelines/components/bottom-sheets.html#bottom-sheets-modal-bottom-sheets)
 
-[![Build Status](https://travis-ci.org/Commit451/ModalBottomSheetDialogFragment.svg?branch=master)](https://travis-ci.org/Commit451/ModalBottomSheetDialogFragment) [![](https://jitpack.io/v/Commit451/ModalBottomSheetDialogFragment.svg)](https://jitpack.io/#Commit451/ModalBottomSheetDialogFragment)
+[![](https://jitpack.io/v/procks/ModalBottomSheetDialogFragment.svg)](https://jitpack.io/#procks/ModalBottomSheetDialogFragment/-SNAPSHOT)
 
 <img src="/art/simple.png?raw=true" width="200px"> <img src="/art/header.png?raw=true" width="200px"> <img src="/art/custom.png?raw=true" width="200px">
 
 ## Usage
+Add it in your root build.gradle at the end of repositories:
+```gradle
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+Add the dependency
+```gradle
+dependencies {
+        implementation 'com.github.procks:ModalBottomSheetDialogFragment:1.0.2.1'
+}
+```
+
 `ModalBottomSheetDialogFragment`s are typically inflated via a menu item resource. The menu item resource defines the title, icon, and ID is of each `Option`. The menu item resource might looks something like this:
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -30,28 +46,29 @@ Modal bottom sheet dialog based on the [Material Guidelines](https://material.io
 </menu>
 ```
 Use the builder to create and show the bottom sheet dialog:
-```kotlin
-ModalBottomSheetDialogFragment.Builder()
+```java
+new ModalBottomSheetDialogFragment.Builder()
     .add(R.menu.options)
-    .show(supportFragmentManager, "options")
+    .show(getSupportFragmentManager(), "options");
 ```
 Make sure that your activity or fragment implements `ModalBottomSheetDialogFragment.Listener`. For example:
-```kotlin
-override fun onModalOptionSelected(tag: String?, option: Option) {
-    Snackbar.make(root, "Selected option ${option.title} from fragment with tag $tag", Snackbar.LENGTH_SHORT)
-            .show()
+```java
+@Override
+public void onModalOptionSelected(String tag, @NonNull Option option) {
+    Snackbar.make(findViewById(R.id.root), String.format(Locale.ROOT,
+            "Selected option %s from tag %s", option.title, tag), Snackbar.LENGTH_SHORT).show();
 }
 ```
 You can also customize things to your liking:
-```kotlin
-ModalBottomSheetDialogFragment.Builder()
+```java
+new ModalBottomSheetDialogFragment.Builder()
     .add(R.menu.option_lots)
     //custom option, without needing menu XML
     .add(OptionRequest(123, "Custom", R.drawable.ic_bluetooth_black_24dp))
     .layout(R.layout.item_custom)
     .header("Neat")
     .columns(3)
-    .show(supportFragmentManager, "custom")
+    .show(getSupportFragmentManager(), "custom");
 ```
 See the sample app for more.
 
